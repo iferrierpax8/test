@@ -1,10 +1,15 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Template
 metadata:
   name: vue3-backstage-template
+  description: PE-613 Testing to convert Vue2 Gener8 to Vue-CLI Vue3 Backstage Generation
   annotations:
     github.com/project-slug: pax8/vue3-backstage-template
+  tags:
+    - vue3
+    - vue-cli
 spec:
-  type: other
-  lifecycle: unknown
+  type: service-template
+  lifecycle: experimental
   owner: platform-engineering
+  system: frontends

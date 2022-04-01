@@ -5,6 +5,6 @@ metadata:
   annotations:
     github.com/project-slug: pax8/vue3-backstage-template
 spec:
-  type: other
+  type: template
   lifecycle: unknown
   owner: platform-engineering

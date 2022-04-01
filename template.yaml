@@ -1,0 +1,66 @@
+# Notice the v1beta3 version
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: v1beta3-demo
+  title: Vue3 Template
+  description: vue3 template
+spec:
+  owner: backstage/techdocs-core
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Fill in some steps
+      required:
+        - microserviceName
+      properties:
+        microserviceName:
+          title: Microservice Name
+          type: string
+          description: Unique name of the microservice
+          ui:autofocus: true
+          ui:options:
+            rows: 1
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: https://github.com/pax8/vue3-backstage-template
+        values:
+          microserviceName: ${{ parameters.microserviceName }}
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.microserviceName }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    #- id: register
+    #  name: Register
+    #  action: catalog:register
+    #  input:
+    #    repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+    #    catalogInfoPath: '/catalog-info.yaml'
+
+  # some outputs which are saved along with the job for use in the frontend
+  #output:
+  #  remoteUrl: ${{ steps.publish.output.remoteUrl }}
+  #  entityRef: ${{ steps.register.output.entityRef }}

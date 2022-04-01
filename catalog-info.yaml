@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: vue3-backstage-template
+  annotations:
+    github.com/project-slug: pax8/vue3-backstage-template
+spec:
+  type: other
+  lifecycle: unknown
+  owner: platform-engineering
